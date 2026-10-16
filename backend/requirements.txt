@@ -1,0 +1,35 @@
+# ---------------------------------------------------------------------------
+# AI-Powered Aviation Incident Analysis — backend requirements
+#
+# The pipeline runs on the "reliable core" (fastapi + numpy/pandas/scikit-learn)
+# and automatically upgrades to the full NLP stack (sentence-transformers,
+# BERTopic, spaCy) when those packages are present.  The heavy block is optional
+# but recommended — see README for the lightweight install.
+# ---------------------------------------------------------------------------
+
+# --- Web / API (reliable core) ---
+fastapi==0.133.1
+uvicorn==0.41.0
+python-multipart==0.0.27
+pydantic==2.13.4
+
+# --- Data & classic ML (reliable core) ---
+numpy==2.2.6
+pandas==3.0.5
+scikit-learn==1.9.0
+pyarrow==25.0.1
+
+# --- Full NLP stack (optional but used as primary engine) ---
+sentence-transformers==6.0.0
+transformers==5.15.1
+torch==2.13.0
+bertopic==0.17.4
+umap-learn==0.5.12
+hdbscan==0.8.44
+spacy==3.8.15
+nltk==3.10.3
+
+# spaCy English model — install separately (SSL-friendly):
+#   python -m spacy download en_core_web_sm
+# or, behind a corporate proxy:
+#   pip install https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl

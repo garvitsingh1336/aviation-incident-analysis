@@ -1,0 +1,44 @@
+# One service: the FastAPI app serving both the REST API and the built SPA.
+#
+#   docker compose up --build        # build + run
+#   open http://localhost:8000
+#
+# The image bakes the NLP models and prebuilt analysis artifacts, so the app is
+# ready as soon as the container is healthy — no first-run build step.
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: aviation-incident-analysis:latest
+    container_name: aviation-incident-analysis
+    ports:
+      - "8000:8000"
+    environment:
+      AV_HOST: "0.0.0.0"
+      AV_PORT: "8000"
+      # Same-origin in production (SPA is served by FastAPI), so CORS is unused.
+      # Uncomment to allow a separately-hosted frontend to call this API:
+      # AV_CORS_ORIGINS: "https://your-frontend.example.com"
+    restart: unless-stopped
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8000/api/health').status==200 else 1)"
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 40s
+
+    # Optional: persist regenerated analysis artifacts across restarts. Leave
+    # this commented for the default demo — an empty volume would hide the
+    # artifacts baked into the image and force a multi-minute rebuild on first
+    # start. Mount it only if you intend to POST /api/rebuild and keep results.
+    # volumes:
+    #   - analysis_data:/app/data_store
+
+# volumes:
+#   analysis_data:

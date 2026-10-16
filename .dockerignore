@@ -1,0 +1,38 @@
+# Keep the build context small and reproducible.
+
+# Node / frontend build outputs (the image rebuilds dist/ in the node stage)
+**/node_modules
+frontend/dist
+frontend/.vite
+
+# Python caches / virtualenvs
+**/__pycache__
+**/*.py[cod]
+**/*.egg-info
+.venv
+venv
+.pytest_cache
+
+# Git / editor / OS
+.git
+.gitignore
+.idea
+.vscode
+.DS_Store
+Thumbs.db
+
+# Logs / scratch
+install_ml.log
+install_ml.sh
+synopsis_extracted.txt
+*.log
+
+# Docker / docs (not needed inside the image)
+Dockerfile
+.dockerignore
+docker-compose.yml
+README.md
+
+# NOTE: data_store/ is intentionally NOT ignored — the prebuilt analysis
+# artifacts (analysis.json, embeddings.npy, embedder.pkl, meta.json) are copied
+# into the image so the container starts instantly without rebuilding.
