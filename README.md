@@ -6,11 +6,6 @@ latent topics, clusters, and *potential contributing factors* behind them, then
 presents the findings through an interactive analytics dashboard with
 meaning-based semantic search.
 
-> Minor Project · B.Tech Computer Science & Engineering
-> ABES Engineering College, Ghaziabad · Session 2026–27
-> **Garvit Singh** (2400320100462) · **Divyansh Yadav** (2400320100444) · Section CSE-17
-> Guide: **Ms. Shweta Singh**
-
 ---
 
 ## What it does
