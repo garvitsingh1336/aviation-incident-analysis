@@ -72,10 +72,10 @@ export default function App() {
             <div className="logo">✈</div>
             <div className="brand-text">
               <b>Aviation Incident AI</b>
-              <span>Contributing-Factor Discovery</span>
+              <span>Safety Intelligence Suite</span>
             </div>
           </div>
-          <div className="nav-section">Analysis pipeline</div>
+          <div className="nav-section">Analytical Pipeline</div>
           {NAV.map((n) => (
             <button
               key={n.id}
@@ -87,7 +87,9 @@ export default function App() {
             </button>
           ))}
           <div className="sidebar-foot">
-            Minor Project · CSE · Session 2026–27
+            <span style={{ fontWeight: 600, color: "var(--text-secondary)" }}>Aviation Safety Analytics</span>
+            <br />
+            1,000 Real Incident Reports
             <br />
             ABES Engineering College
           </div>
@@ -97,7 +99,7 @@ export default function App() {
           <header className="topbar">
             <div>
               <h1>{current.title}</h1>
-              <div className="sub">AI-Powered Aviation Incident Analysis</div>
+              <div className="sub">Unsupervised Safety Narrative Intelligence & Factor Discovery</div>
             </div>
             <div className="spacer" />
             {health.data && (
