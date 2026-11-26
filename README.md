@@ -39,7 +39,7 @@ results through the REST API.
 
 | # | Stage | Module | API endpoint | Dashboard view |
 |---|-------|--------|--------------|----------------|
-| 1 | Data Collection | `app/data/generate_dataset.py` | — | — |
+| 1 | Data Collection | `app/data/process_real_dataset.py` (`reports.csv`) | — | — |
 | 2 | Data Preparation | `pipeline/data_loader.py` | — | — |
 | 3 | NLP Preprocessing | `pipeline/preprocess.py` | — | — |
 | 4 | Named Entity Recognition | `pipeline/ner.py` (spaCy) | `GET /api/entities` | **Entities** |
@@ -216,8 +216,8 @@ All are optional; defaults match the shipped artifacts.
 | `AV_SPACY_MODEL` | `en_core_web_sm` | spaCy NER model |
 | `AV_N_CLUSTERS` | `14` | KMeans cluster count |
 | `AV_MIN_TOPIC_SIZE` | `10` | BERTopic minimum topic size |
-| `AV_SYNTHETIC_N` | `480` | Size of the generated corpus |
-| `AV_DATASET_CSV` | *(none)* | Path to a real CSV export (e.g. NTSB/ASRS) to use instead of the synthetic corpus |
+| `AV_DATASET_CSV` | `backend/app/data/reports.csv` | Path to the NASA ASRS CSV dataset (or another CSV export with a narrative column) |
+| `AV_SYNTHETIC_N` | `480` | Fallback synthetic corpus size if no CSV is supplied |
 | `AV_CORS_ORIGINS` | `localhost:5173,127.0.0.1:5173,localhost:4173` | Allowed origins (only needed if the frontend is hosted separately) |
 
 ---
@@ -319,11 +319,13 @@ engine check as a quick liveness probe.
 
 ## Notes on the dataset
 
-The shipped corpus is **synthetically generated** (deterministic, ~480
-narratives) so the project is fully reproducible without redistributing a
-licensed safety database. The entire pipeline is dataset-agnostic: point
-`AV_DATASET_CSV` at a real export (e.g. NTSB or NASA ASRS) with a narrative
-column and rebuild to run the identical analysis on real data.
+The project uses a **real-world corpus of 1,000 aviation incident narratives**
+sourced from the **NASA Aviation Safety Reporting System (ASRS)** (covering
+2012–2022, stored in `backend/app/data/reports.csv` and prepared via
+`backend/app/data/process_real_dataset.py`). The pipeline is also
+dataset-agnostic: point `AV_DATASET_CSV` at any other NASA ASRS or NTSB CSV
+export with a narrative column and rebuild (`POST /api/rebuild`) to run the
+identical analysis on a different slice of data.
 
 ---
 
