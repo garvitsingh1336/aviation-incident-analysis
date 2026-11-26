@@ -37,3 +37,8 @@ Thumbs.db
 !.env.sample
 *.log
 .freebuff/
+
+# Reports, guidelines, and research papers (keep local only)
+*.docx
+*.pdf
+.~lock.*
